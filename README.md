@@ -12,8 +12,6 @@
 
 </div>
 
-> TODO before 15:45: demo video link. Then delete this line.
-
 ---
 
 ## 🧁 Who it's for
