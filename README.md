@@ -1,6 +1,6 @@
 > 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
 >
-> TODO before 15:45: live link, screenshots, demo video link, team table, owner quote (only with consent). Then delete this line.
+> TODO before 15:45: screenshots, demo video link, team table, owner quote (only with consent). Then delete this line.
 
 # AI Intern
 
@@ -34,7 +34,9 @@ Claude plays three roles, each with its own system prompt in [`prompts/`](prompt
 | **Lesson** | Message, answers, both outputs | A reusable onboarding note with `[blanks]`, what changed and why, and a one-line takeaway. Structured JSON via tool use. |
 
 - Model: `claude-sonnet-5-5` via the Anthropic API (configurable with `CLAUDE_MODEL`).
-- Safeguards: no invented facts, a reminder never to paste personal data, malformed tags fall back to plain text, and if a live call fails the app shows clearly labelled demo data instead of an error.
+- Structured output: the coach and lesson each get one strict JSON-schema tool, and the server validates every answer (exactly 3 questions, numbers 1 to 3, 2 to 3 suggestions each). Anything that doesn't pass falls back to demo data.
+- Safeguards: no invented facts, an inline warning when the message contains an email address or phone number, malformed tags fall back to plain text, and if a live call fails the app shows clearly labelled demo data instead of an error.
+- Cost guard for the public link: a per-instance cap of `MAX_REQUESTS_PER_HOUR` (default 200) and a 4,000-character limit on what the owner types, both with a friendly message.
 - The owner always stays in control: they copy the result themselves; nothing is posted automatically.
 
 ## How to run it
@@ -45,7 +47,7 @@ npm install
 npm run dev             # open http://localhost:3000
 ```
 
-No key? Set `MOCK=1` in `.env` to run the whole flow on demo data.
+No key? Run `npm run mock` (or set `MOCK=1` in `.env`) to run the whole flow on demo data for all three presets.
 
 **Live link:** https://pomelo-weld.vercel.app
 
