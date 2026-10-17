@@ -1,0 +1,351 @@
+{
+  "results": [
+    {
+      "brief": "Write an Instagram post about our new cake.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "Which cake is it, and what makes it special?",
+          "answer": "Pistachio-raspberry cake, baked fresh daily, €4.80 a slice"
+        },
+        {
+          "n": 2,
+          "question": "Who follows you, and which language do they speak?",
+          "answer": "Neighbours from the Kiez, mostly German"
+        },
+        {
+          "n": 3,
+          "question": "What should people do after reading the post?",
+          "answer": "Come by this weekend and try a slice"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 1,
+        "action": 2,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 4,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about our new seasonal coffee.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What's in the coffee, and what does it cost?",
+          "answer": "Pumpkin spice latte with oat milk, 4,80 €"
+        },
+        {
+          "n": 2,
+          "question": "How do we usually sound to our guests?",
+          "answer": "Warm and friendly, like chatting with a regular"
+        },
+        {
+          "n": 3,
+          "question": "What should people do after reading the post?",
+          "answer": "Come in this week and try it"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 3,
+        "action": 2,
+        "unsupportedClaims": [
+          "Implies several new seasonal drinks to choose from (\"Which will you pick first?\"), but the owner described only one"
+        ]
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 4,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post saying we have new opening hours.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What are the new opening hours, and from when?",
+          "answer": "Mon–Fri 8–18 Uhr, Sat–Sun 9–16 Uhr, ab 1. März"
+        },
+        {
+          "n": 2,
+          "question": "Who follows you on Instagram, and what language?",
+          "answer": "Neighbourhood regulars and students, German and English"
+        },
+        {
+          "n": 3,
+          "question": "How do you usually sound when talking to guests?",
+          "answer": "Friendly and casual, like chatting over the counter"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 2,
+        "action": 2,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 4,
+        "voice": 5,
+        "action": 4,
+        "unsupportedClaims": [
+          "\"ab sofort gibt's neue Zeiten\": says the new hours start now, but the owner said from 1 March (ab 1. März)"
+        ]
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about our breakfast menu.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "Who should see this post, and what language?",
+          "answer": "Neighbourhood regulars and locals, in German"
+        },
+        {
+          "n": 2,
+          "question": "How do we usually sound to our guests?",
+          "answer": "Warm and cozy, like talking to a friend"
+        },
+        {
+          "n": 3,
+          "question": "What should people do after reading it?",
+          "answer": "Come by this weekend for brunch"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 1,
+        "action": 2,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 2,
+        "voice": 4,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about our terrace opening.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What should guests know about the terrace opening?",
+          "answer": "Opens Saturday 1 May, 9 am, with 30 seats"
+        },
+        {
+          "n": 2,
+          "question": "Who reads your Instagram, and in which language?",
+          "answer": "Neighbourhood regulars, in German"
+        },
+        {
+          "n": 3,
+          "question": "What should people do after reading the post?",
+          "answer": "Come by on opening day"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 1,
+        "action": 2,
+        "unsupportedClaims": [
+          "\"The terrace is officially open!\" says the terrace is already open, but the owner's facts say it opens Saturday 1 May at 9 am"
+        ]
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 5,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about a new sandwich.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What's in the sandwich, and what does it cost?",
+          "answer": "Focaccia with burrata, tomato, basil pesto, €8.50"
+        },
+        {
+          "n": 2,
+          "question": "Who will read it, and in which language?",
+          "answer": "Regulars from the neighbourhood, in German and English"
+        },
+        {
+          "n": 3,
+          "question": "How do we usually sound to our guests?",
+          "answer": "Friendly and casual, like talking to a neighbour"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 2,
+        "action": 3,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 5,
+        "action": 4,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about our weekend brunch.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What's on the brunch menu, and what does it cost?",
+          "answer": "Shakshuka, pancakes, fresh bread, 19 € with coffee"
+        },
+        {
+          "n": 2,
+          "question": "Who should read this, and what language do they speak?",
+          "answer": "Neighbourhood regulars and families, in German"
+        },
+        {
+          "n": 3,
+          "question": "How do you usually sound with your guests?",
+          "answer": "Warm and cosy, like talking to a friend"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 1,
+        "action": 3,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 5,
+        "action": 3,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about a new pastry.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "What's the pastry, and what makes it special?",
+          "answer": "Pistachio croissant, filled with cream, €3.80, from Saturday"
+        },
+        {
+          "n": 2,
+          "question": "Who should read this, and which language?",
+          "answer": "Neighbourhood regulars, in German and English"
+        },
+        {
+          "n": 3,
+          "question": "How should our café sound on Instagram?",
+          "answer": "Warm and friendly, like chatting over the counter"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 2,
+        "action": 4,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 4,
+        "action": 4,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post thanking our regulars.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "Why are you thanking them right now?",
+          "answer": "We just turned 5 years old this month"
+        },
+        {
+          "n": 2,
+          "question": "How do you usually sound with your guests?",
+          "answer": "Warm and casual, like talking to a friend"
+        },
+        {
+          "n": 3,
+          "question": "What should guests do after reading it?",
+          "answer": "Come by this week for a free coffee"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 4,
+        "action": 2,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 4,
+        "voice": 5,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    },
+    {
+      "brief": "Write an Instagram post about our new vegan options.",
+      "answers": [
+        {
+          "n": 1,
+          "question": "Which vegan options are new, and what do they cost?",
+          "answer": "Vegan croissant €3.20 and oat-milk cheesecake €4.50"
+        },
+        {
+          "n": 2,
+          "question": "Who will read this, and in which language?",
+          "answer": "Our regulars and neighbours in Kreuzberg, in German"
+        },
+        {
+          "n": 3,
+          "question": "What should people do after reading it?",
+          "answer": "Come by this weekend and try one"
+        }
+      ],
+      "v1": {
+        "specific": 1,
+        "voice": 1,
+        "action": 3,
+        "unsupportedClaims": []
+      },
+      "v2": {
+        "specific": 5,
+        "voice": 5,
+        "action": 5,
+        "unsupportedClaims": []
+      },
+      "answersTagged": 3,
+      "preferred": "v2"
+    }
+  ],
+  "failed": []
+}

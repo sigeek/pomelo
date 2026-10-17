@@ -37,6 +37,7 @@ Claude plays three roles, each with its own system prompt in [`prompts/`](prompt
 - Structured output: the coach and lesson each get one strict JSON-schema tool, and the server validates every answer (exactly 3 questions, numbers 1 to 3, 2 to 3 suggestions each). Anything that doesn't pass falls back to demo data.
 - Safeguards: no invented facts, an inline warning when the message contains an email address or phone number, malformed tags fall back to plain text, and if a live call fails the app shows clearly labelled demo data instead of an error.
 - Cost guard for the public link: a per-instance cap of `MAX_REQUESTS_PER_HOUR` (default 200) and a 4,000-character limit on what the owner types, both with a friendly message.
+- Does onboarding actually help? We ran 10 Instagram briefs through the live app and had a separate Claude judge (Opus 5.5) score the posts blind. The onboarded post won 10 of 10, and "specific" went from 1.0 to 4.5 out of 5. Method, numbers and limits: [`eval/RESULTS.md`](eval/RESULTS.md) (`npm run eval`).
 - The owner always stays in control: they copy the result themselves; nothing is posted automatically.
 
 ## How to run it

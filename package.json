@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "mock": "MOCK=1 next dev"
+    "mock": "MOCK=1 next dev",
+    "eval": "node --env-file=.env scripts/eval-instagram.mjs"
   },
   "engines": {
     "node": ">=20.9"
