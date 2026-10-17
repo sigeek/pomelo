@@ -275,7 +275,7 @@ function StepBar({ step, reached, onGo }: { step: Step; reached: Step; onGo: (s:
             aria-current={active ? "step" : undefined}
             className="flex min-h-11 flex-col items-stretch gap-1.5 text-left disabled:cursor-default"
           >
-            <span className={`h-1 rounded-full ${s <= step ? "bg-accent" : "bg-line"}`} />
+            <span className={`h-2 rounded-full border-[1.5px] border-ink ${s <= step ? "bg-go" : "bg-white"}`} />
             <span className={`text-xs ${active ? "font-semibold text-ink" : "text-muted"}`}>
               {i + 1}. {label}
             </span>
@@ -315,7 +315,7 @@ function PrimaryButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="mt-5 min-h-12 w-full rounded-2xl bg-accent px-4 text-base font-semibold text-white disabled:opacity-50"
+      className="mt-5 min-h-14 w-full rounded-[18px] border-[3px] border-ink bg-go px-4 font-display text-[19px] text-ink shadow-[0_4px_0_var(--color-ink)] disabled:opacity-50"
     >
       {children}
     </button>

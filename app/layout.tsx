@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Itim, Mali } from "next/font/google";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
+const itim = Itim({ subsets: ["latin"], weight: "400", variable: "--font-itim" });
+const mali = Mali({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-mali" });
 
 export const metadata: Metadata = {
   title: "AI Intern",
@@ -13,7 +14,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" className={`${itim.variable} ${mali.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

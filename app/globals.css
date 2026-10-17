@@ -1,21 +1,43 @@
 @import "tailwindcss";
 
+/* "Good Coffee" style from the team's Paper prototype: café wall, cream cards, ink outlines. */
 @theme {
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --color-page: #f3f5f8;
-  --color-ink: #16202c;
-  --color-muted: #4a5563;
-  --color-accent: #1f4fd1;
-  --color-line: #e1e5eb;
-  --color-a1-bg: #ece9fd;
-  --color-a1: #3b2f99;
-  --color-a2-bg: #ddf3ec;
-  --color-a2: #0b5844;
-  --color-a3-bg: #fde8da;
-  --color-a3: #8a3b0e;
+  --font-sans: var(--font-mali), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-itim), ui-sans-serif, system-ui, sans-serif;
+  --color-white: #fff9ee;
+  --color-page: #f9f0ea;
+  --color-ink: #5c2d2b;
+  --color-muted: #8a5a50;
+  --color-accent: #2f7a4a;
+  --color-go: #6bc46a;
+  --color-line: #5c2d2b;
+  --color-soft-line: #e3cdb8;
+  /* Answer colours: 1 coral (what happened), 2 lavender (voice), 3 mint (next step) */
+  --color-a1-bg: #f9d5d2;
+  --color-a1: #8a2e2a;
+  --color-a2-bg: #e6daf4;
+  --color-a2: #5b3c86;
+  --color-a3-bg: #d3efe3;
+  --color-a3: #22604a;
 }
 
 body {
-  background: var(--color-page);
+  background: repeating-linear-gradient(90deg, #f6dfa2 0px, #f6dfa2 22px, #efd088 22px, #efd088 26px);
+  background-attachment: fixed;
   color: var(--color-ink);
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* Chunky outlines and offset shadows on cards and buttons */
+.border {
+  border-width: 2.5px;
+}
+.bg-white.border,
+.bg-white.border-2 {
+  box-shadow: 0 4px 0 var(--color-ink);
 }

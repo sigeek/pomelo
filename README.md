@@ -79,5 +79,5 @@ We didn't get to test with a real café owner on the day, so we won't claim a re
 - [Next.js](https://nextjs.org) and [Tailwind CSS](https://tailwindcss.com) (MIT)
 - [Anthropic TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript) (MIT)
 - Hosted on [Vercel](https://vercel.com)
-- [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (SIL Open Font License)
+- [Itim](https://fonts.google.com/specimen/Itim) and [Mali](https://fonts.google.com/specimen/Mali) (SIL Open Font License); visual style from our own Paper prototype
 - "AI as an intern" idea popularised by Ethan Mollick
