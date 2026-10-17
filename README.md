@@ -1,6 +1,6 @@
 > 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
 >
-> TODO before 15:45: screenshots, demo video link, team table, owner quote (only with consent). Then delete this line.
+> TODO before 15:45: screenshots, demo video link, team table. Then delete this line.
 
 # AI Intern
 
@@ -56,9 +56,13 @@ No key? Run `npm run mock` (or set `MOCK=1` in `.env`) to run the whole flow on 
 
 TODO: 2-minute demo video link, plus screenshots of the compare screen and the note.
 
-## Who we talked to
+## Evidence so far
 
-TODO: one real owner's reaction from today (only with consent; otherwise describe them, e.g. "a florist in Kreuzberg").
+We didn't get to test with a real café owner on the day, so we won't claim a reaction we don't have. What we can show:
+
+- **A blind test of the outputs.** 10 Instagram briefs ran through the live app, and a separate Claude judge scored the posts without knowing which came first. The onboarded post won 10 of 10, and "specific" went from 1.0 to 4.5 out of 5. See [`eval/RESULTS.md`](eval/RESULTS.md).
+- **A visible learning signal.** The meter shows how many of the four things a new employee needs were in the owner's message: 1 of 4 at the start of the review demo, 4 of 4 in the note they take away.
+- **Next step:** try it with owners in the AI workshops that chambers and craft associations already run (IHK, Handwerkskammer, Mittelstand-Digital Zentren) and record whether they reuse the note.
 
 ## Team: Pomelo
 
@@ -74,5 +78,6 @@ TODO: one real owner's reaction from today (only with consent; otherwise describ
 
 - [Next.js](https://nextjs.org) and [Tailwind CSS](https://tailwindcss.com) (MIT)
 - [Anthropic TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript) (MIT)
+- Hosted on [Vercel](https://vercel.com)
 - [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (SIL Open Font License)
 - "AI as an intern" idea popularised by Ethan Mollick
