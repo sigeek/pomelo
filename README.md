@@ -1,118 +1,75 @@
-# ⚡ Claude Impact Lab Berlin · 17 Oct 2026
+> 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
+>
+> TODO before 15:45: live link, screenshots, demo video link, team table, owner quote (only with consent). Then delete this line.
 
-> We started with a conversation. Now we build.
+# AI Intern
 
-A full-day build sprint in Berlin. ~100 curated people, mixed teams, Claude API credits, judges, and gifts for the winning team. Top builds get shared with Anthropic.
+**One line:** Small business owners onboard an AI intern like a new employee, get a reply or post that sounds like their shop in 3 minutes, and learn how to brief any AI themselves.
 
-🔗 Event page: https://luma.com/claude-oofc
+## The problem
 
-**Not just for developers.** Engineers, designers, researchers, founders, creatives, product people and domain experts all build here. If you can describe a problem, you can build with Claude.
+Owners of small cafés, bakeries and shops in Berlin answer reviews and post online themselves, late at night, with no time to spare. Most try AI once, type one vague line, get a stock answer that sounds like a chain, and decide AI isn't for them. In Germany only 19% of firms with fewer than 5 employees used AI between 2022 and 2024, and lack of skills and lack of time are the top barriers ([KfW Research, Feb 2026](https://www.kfw.de/PDF/Download-Center/Konzernthemen/Research/PDF-Dokumente-Fokus-Volkswirtschaft/Fokus-2026/Fokus-Nr.-533-Februar-2026-KI-Mittelstand.pdf)).
 
----
+Every owner already has the skill that fixes this: onboarding a new employee.
 
-## 🗓️ Schedule
+## What it does
 
-| Time | What |
-|---|---|
-| 09:30 | Check-in |
-| 10:00 | Welcome: the challenge, rules and judging |
-| 10:30 | Bingo icebreaker |
-| 10:45 | Team forming (teams of 5) |
-| 11:00 | **Build starts** |
-| 13:00 | Lunch until 13:45, then back to building |
-| 15:00 | Submission reminder. Record your demo now! |
-| 15:45 | 15 minute warning |
-| **16:00** | **⛔ Hard deadline: repo, README and 2 minute demo video** |
-| 16:05 | First round judging, two groups of three judges |
-| 16:38 | Six finalists announced (top 3 of each group) |
-| 16:40 | Finals: six teams pitch live (6 min + 4 min Q&A) |
-| 17:45 | Winners announced + closing |
-| 18:00 | End |
+Meet Mira (fictional). She owns Kiez Café and has a 1-star review to answer: *"Waited 20 minutes for one coffee. Never again."*
 
----
+1. **Give the AI intern a task.** Pick "Reply to a review", "Instagram post" or "Job ad", or type your own.
+2. **See the first try, then onboard.** The reply is a stock apology. The app asks the 3 questions a new employee would need answered (what happened, how you sound, what you want the guest to do). Tap a suggested answer or type your own.
+3. **Compare.** The new reply sounds like Mira. Each answer and the sentences it produced share a colour, so you see exactly what your words changed.
+4. **Keep your onboarding note.** A reusable message for any AI chat, plus a meter: your first message covered 1 of 4 things a new employee needs, your note covers 4 of 4.
 
-## 🎯 The challenge: AI education for everyone
+No login, phone first, nothing is stored and nothing is posted for you.
 
-Build a working prototype that helps real people learn or use AI. One day. Claude Code.
+## How Claude is used
 
-Pick one real audience, for example: older adults, small business owners, job seekers, parents, newcomers, people with disabilities, or workers in non-tech jobs. Another group is fine, as long as it is a real one.
+Claude plays three roles, each with its own system prompt in [`prompts/`](prompts/):
 
-## 👥 Teams
-
-Every team has **5 people**. There are four roles: **builder**, **product or design**, **domain expert** and **founder**. Each team must include at least 1 builder, 1 product or design person and 1 domain expert; the other 2 seats can be a founder or anyone. Your role is on your name tag. Pick a team name and tell it to us at the desk.
-
----
-
-## 🚀 Get started (5 minutes)
-
-1. **One person per team** opens the **[starter repo](https://github.com/Claude-Community-Berlin/claude-impact-lab-starter)** and clicks **Use this template** → *Create a new repository* (public).
-2. Add your teammates as collaborators.
-3. **Claim your $100 API credits** with the QR code in the room: sign in with the Claude Console account you will use today. Your organization is filled in for you; add your name and submit once. Then create an API key in the Console. Credits can take a while to arrive, so if yours are not there yet, build with a teammate's key in the meantime.
-4. Set your API key locally. Never commit it:
-   ```bash
-   cp .env.example .env    # then paste your key into .env
-   ```
-5. Open your new repo in Claude Code (`claude`) or Claude.ai. Claude Code reads `CLAUDE.md` automatically: it knows the rules, judging, timeline and how your team should collaborate. In Claude.ai, paste `CLAUDE.md` into your first message.
-6. Build. 🛠️ Fill in the starter's README as you go: what it does, who it's for, how to run it.
-
-**No terminal?** Build in [Claude.ai](https://claude.ai) with artifacts, then paste your link and screenshots into your submission. That counts.
-
----
-
-## 📏 Rules
-
-1. **Build today.** Ideas and research can come from before; the build happens on the day.
-2. **Use Claude.** Claude must be part of the solution, not just the tool that wrote it.
-3. **Teams of 5**, with at least 1 builder, 1 product or design and 1 domain expert.
-4. **Public repo** with a README anyone can follow.
-5. **No secrets in Git.** API keys go in `.env`, which is git-ignored.
-6. **Open-source libraries, APIs and assets are fine.** Credit them in your README.
-7. **Be kind.** Help other teams and respect the venue.
-8. **16:00 is final.** Late submissions are not judged.
-
----
-
-## 📤 How to submit (before 16:00)
-
-You need three things by 16:00:
-
-1. **Repo:** your public repo, named with your team name
-2. **README:** who it is for, what problem it solves, how to run it
-3. **Demo video:** a 2 minute screen recording of it working (required)
-
-Then **one person per team** fills in the **[submission form](https://tally.so/r/1WPr9Q)** (also on the QR code in the room): team name, team members, repo link, demo video link, and who it is for. Done ✅
-
-Judges watch your demo first, then read your README.
-
-**Tip:** Record the 2-minute demo at 15:00, not 15:55. Loom, a phone, or a screen recording all work.
-
----
-
-## 🏆 Judging
-
-100 points, four criteria:
-
-| Criteria | Points | Question the judges ask |
+| Role | What it reads | What it produces |
 |---|---|---|
-| **Impact** | 40 | Does it help a real audience learn or use AI? Would they actually use it? |
-| **Working demo** | 20 | Does it really run? |
-| **Technical quality** | 20 | Is it well built? |
-| **Creativity** | 20 | Is the idea fresh? |
+| **AI intern** | The owner's message, and later the owner's 3 answers | The reply or post. It never invents facts that weren't given. With answers, it tags every phrase with the answer it came from (`<a1>…</a1>`), which drives the colour linking. |
+| **Coach** | The owner's message | Which of the four essentials (what, who, tone, goal) it already covers, 3 onboarding questions for the missing ones, and tappable example answers. Returned as structured JSON via tool use. |
+| **Lesson** | Message, answers, both outputs | A reusable onboarding note with `[blanks]`, what changed and why, and a one-line takeaway. Structured JSON via tool use. |
 
-Ties are broken by the higher Impact score.
+- Model: `claude-sonnet-5-5` via the Anthropic API (configurable with `CLAUDE_MODEL`).
+- Safeguards: no invented facts, a reminder never to paste personal data, malformed tags fall back to plain text, and if a live call fails the app shows clearly labelled demo data instead of an error.
+- The owner always stays in control: they copy the result themselves; nothing is posted automatically.
 
-**Round one (16:05):** two groups of three judges each score their half of the teams. The top 3 of each group go to the finals.
-**Finals (16:40):** six teams · 6 min demo + 4 min Q&A, scored by all six judges.
+## How to run it
 
----
+```bash
+cp .env.example .env    # paste your ANTHROPIC_API_KEY into .env
+npm install
+npm run dev             # open http://localhost:3000
+```
 
-## 🆘 Help
+No key? Set `MOCK=1` in `.env` to run the whole flow on demo data.
 
-Stuck? Find a Claude ambassador or mentor in the room.
+**Live link:** TODO
 
-Useful links:
-- Claude docs: https://docs.claude.com
-- Claude Code: https://docs.claude.com/en/docs/claude-code/overview
-- Prompting guide: https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview
+## Screenshots / demo
 
-Have fun. Build something that matters. 🧡
+TODO: 2-minute demo video link, plus screenshots of the compare screen and the note.
+
+## Who we talked to
+
+TODO: one real owner's reaction from today (only with consent; otherwise describe them, e.g. "a florist in Kreuzberg").
+
+## Team: Pomelo
+
+| Name | Role / background |
+|---|---|
+| [Name](https://www.linkedin.com/in/your-profile) | Builder |
+| [Name](https://www.linkedin.com/in/your-profile) | Product or design |
+| [Name](https://www.linkedin.com/in/your-profile) | Domain expert (education) |
+| [Name](https://www.linkedin.com/in/your-profile) | Founder |
+| [Name](https://www.linkedin.com/in/your-profile) | |
+
+## Credits
+
+- [Next.js](https://nextjs.org) and [Tailwind CSS](https://tailwindcss.com) (MIT)
+- [Anthropic TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript) (MIT)
+- [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (SIL Open Font License)
+- "AI as an intern" idea popularised by Ethan Mollick
