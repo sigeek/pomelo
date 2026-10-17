@@ -6,7 +6,7 @@
 
 **Onboard your AI intern like a new employee, and it starts sounding like your shop.**
 
-[**▶ Try the live app**](https://pomelo-weld.vercel.app) · [Project page](https://sigeek.github.io/pomelo/) · [How Claude is used](#-how-claude-is-used) · [Evidence](#-evidence)
+[**▶ Try the live app**](https://pomelo-weld.vercel.app) · [**🎬 Watch the 2-minute demo**](https://drive.google.com/file/d/1-n08wdy2zb7ryZxRhmLvyt8flApMXRQ1/view) · [Project page](https://sigeek.github.io/pomelo/) · [How Claude is used](#-how-claude-is-used) · [Evidence](#-evidence)
 
 <sub>Built in one day at the <a href="https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17">Claude Impact Lab Berlin</a>, 17 Oct 2026, by team Pomelo.</sub>
 
@@ -42,6 +42,8 @@ Meet Mira (fictional). She owns Kiez Café and it's Sunday night. A 1-star revie
 | ![Compare screen: every answer and the sentences it produced share a colour](docs/screenshots/compare.png) | ![Note screen: a reusable brief and the meter from 1 of 4 to 4 of 4](docs/screenshots/note.png) |
 
 <sub>Screenshots from the live app with the real Claude API, not demo data.</sub>
+
+🎬 **[Watch the 2-minute demo video](https://drive.google.com/file/d/1-n08wdy2zb7ryZxRhmLvyt8flApMXRQ1/view)**
 
 Phone first, nothing is stored, and nothing is ever posted for you.
 
