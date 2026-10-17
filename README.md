@@ -1,6 +1,6 @@
 > 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
 >
-> TODO before 15:45: screenshots, demo video link. Then delete this line.
+> TODO before 15:45: demo video link. Then delete this line.
 
 # AI Intern
 
@@ -54,7 +54,13 @@ No key? Run `npm run mock` (or set `MOCK=1` in `.env`) to run the whole flow on 
 
 ## Screenshots / demo
 
-TODO: 2-minute demo video link, plus screenshots of the compare screen and the note.
+TODO: 2-minute demo video link.
+
+| Compare: every answer and the sentences it produced share a colour | Note: a reusable brief, and the meter goes from 1 of 4 to 4 of 4 |
+|---|---|
+| ![Compare screen](docs/screenshots/compare.png) | ![Note screen](docs/screenshots/note.png) |
+
+Screenshots from the live app with the real Claude API (no demo data).
 
 ## Evidence so far
 
