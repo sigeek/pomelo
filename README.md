@@ -1,46 +1,88 @@
-> 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
->
+<div align="center">
+
+<img src="docs/assets/storefront.svg" alt="A small café with an AI intern behind the door" width="260" />
+
+# AI Intern ☕
+
+**Onboard your AI intern like a new employee, and it starts sounding like your shop.**
+
+[**▶ Try the live app**](https://pomelo-weld.vercel.app) · [Project page](https://sigeek.github.io/pomelo/) · [How Claude is used](#-how-claude-is-used) · [Evidence](#-evidence)
+
+<sub>Built in one day at the <a href="https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17">Claude Impact Lab Berlin</a>, 17 Oct 2026, by team Pomelo.</sub>
+
+</div>
+
 > TODO before 15:45: demo video link. Then delete this line.
 
-# AI Intern
+---
 
-**One line:** Small business owners onboard an AI intern like a new employee, get a reply or post that sounds like their shop in 3 minutes, and learn how to brief any AI themselves.
+## 🧁 Who it's for
 
-## The problem
+Owners of small cafés, bakeries and shops in Berlin (1 to 10 staff) who answer reviews and post online themselves, usually late at night.
 
-Owners of small cafés, bakeries and shops in Berlin answer reviews and post online themselves, late at night, with no time to spare. Most try AI once, type one vague line, get a stock answer that sounds like a chain, and decide AI isn't for them. In Germany only 19% of firms with fewer than 5 employees used AI between 2022 and 2024, and lack of skills and lack of time are the top barriers ([KfW Research, Feb 2026](https://www.kfw.de/PDF/Download-Center/Konzernthemen/Research/PDF-Dokumente-Fokus-Volkswirtschaft/Fokus-2026/Fokus-Nr.-533-Februar-2026-KI-Mittelstand.pdf)).
+## 😩 The problem
 
-Every owner already has the skill that fixes this: onboarding a new employee.
+They try AI once, type one vague line, get a stock answer that sounds like a chain, and decide AI isn't for them. In Germany only **19% of firms with fewer than 5 employees** used AI between 2022 and 2024, and lack of skills and lack of time are the top barriers ([KfW Research, Feb 2026](https://www.kfw.de/PDF/Download-Center/Konzernthemen/Research/PDF-Dokumente-Fokus-Volkswirtschaft/Fokus-2026/Fokus-Nr.-533-Februar-2026-KI-Mittelstand.pdf)).
 
-## What it does
+**Every owner already has the skill that fixes this: onboarding a new employee.**
 
-Meet Mira (fictional). She owns Kiez Café and has a 1-star review to answer: *"Waited 20 minutes for one coffee. Never again."*
+## ✨ What it does
 
-1. **Give the AI intern a task.** Pick "Reply to a review", "Instagram post" or "Job ad", or type your own.
-2. **See the first try, then onboard.** The reply is a stock apology. The app asks the 3 questions a new employee would need answered (what happened, how you sound, what you want the guest to do). Tap a suggested answer or type your own.
-3. **Compare.** The new reply sounds like Mira. Each answer and the sentences it produced share a colour, so you see exactly what your words changed.
-4. **Keep your onboarding note.** A reusable message for any AI chat, plus a meter: your first message covered 1 of 4 things a new employee needs, your note covers 4 of 4.
+Meet Mira (fictional). She owns Kiez Café and it's Sunday night. A 1-star review is waiting: *"Waited 20 minutes for one coffee. Never again."*
 
-No login, phone first, nothing is stored and nothing is posted for you.
+| | Step | What happens |
+|---|---|---|
+| 🏪 | **Open your café** | No login. Start on the owner's real task. |
+| 📝 | **Give the AI intern a task** | "Reply to a review", "Instagram post", "Job ad", or anything typed in. |
+| ⭐ | **Rate the first try** | It's a stock apology. Mira gives it 2 stars: *too generic*. |
+| 💬 | **Onboard** | Three questions a new barista would need answered: what happened, how you sound, what the guest should do. Tap a suggestion or type your own. |
+| 🎨 | **Compare** | The new reply sounds like Mira. **Each answer and the sentences it produced share a colour and a number**, so she sees exactly what her words changed. She ticks *"I've checked it"* before she can copy. |
+| 📒 | **Keep the note** | A reusable brief for any AI chat, and a meter: her first message covered **1 of 4** things a new employee needs; her note covers **4 of 4**. |
 
-## How Claude is used
+| The compare screen | The note |
+|---|---|
+| ![Compare screen: every answer and the sentences it produced share a colour](docs/screenshots/compare.png) | ![Note screen: a reusable brief and the meter from 1 of 4 to 4 of 4](docs/screenshots/note.png) |
+
+<sub>Screenshots from the live app with the real Claude API, not demo data.</sub>
+
+Phone first, nothing is stored, and nothing is ever posted for you.
+
+## 🤖 How Claude is used
 
 Claude plays three roles, each with its own system prompt in [`prompts/`](prompts/):
 
-| Role | What it reads | What it produces |
+| Role | Reads | Produces |
 |---|---|---|
-| **AI intern** | The owner's message, and later the owner's 3 answers | The reply or post. It never invents facts that weren't given. With answers, it tags every phrase with the answer it came from (`<a1>…</a1>`), which drives the colour linking. |
-| **Coach** | The owner's message | Which of the four essentials (what, who, tone, goal) it already covers, 3 onboarding questions for the missing ones, and tappable example answers. Returned as structured JSON via tool use. |
-| **Lesson** | Message, answers, both outputs | A reusable onboarding note with `[blanks]`, what changed and why, and a one-line takeaway. Structured JSON via tool use. |
+| **AI intern** | The owner's message, later their 3 answers | The reply or post. It never invents facts it wasn't given. With answers, it wraps every phrase in the answer it came from (`<a1>…</a1>`), which drives the colour linking. |
+| **Coach** | The owner's message | Which of the four essentials (what, who, tone, goal) are already there, 3 onboarding questions for the rest, and tappable example answers. |
+| **Lesson** | Message, answers, both outputs | A reusable note with `[blanks]`, what changed and why, and a one-line takeaway. |
 
-- Model: `claude-sonnet-5-5` via the Anthropic API (configurable with `CLAUDE_MODEL`).
-- Structured output: the coach and lesson each get one strict JSON-schema tool, and the server validates every answer (exactly 3 questions, numbers 1 to 3, 2 to 3 suggestions each). Anything that doesn't pass falls back to demo data.
-- Safeguards: no invented facts, an inline warning when the message contains an email address or phone number, malformed tags fall back to plain text, and if a live call fails the app shows clearly labelled demo data instead of an error.
-- Cost guard for the public link: a per-instance cap of `MAX_REQUESTS_PER_HOUR` (default 200) and a 4,000-character limit on what the owner types, both with a friendly message.
-- Does onboarding actually help? We ran 10 Instagram briefs through the live app and had a separate Claude judge (Opus 5.5) score the posts blind. The onboarded post won 10 of 10, and "specific" went from 1.0 to 4.5 out of 5. Method, numbers and limits: [`eval/RESULTS.md`](eval/RESULTS.md) (`npm run eval`).
-- The owner always stays in control: they copy the result themselves; nothing is posted automatically.
+- **Model:** `claude-sonnet-5-5` through the Anthropic API (`CLAUDE_MODEL` to change it).
+- **Structured output:** coach and lesson each get one strict JSON-schema tool, and the server validates every answer (exactly 3 questions, numbers 1 to 3, 2 to 3 suggestions). Anything that fails falls back to demo data.
+- **Never a blank screen:** if a live call fails, the app shows clearly labelled demo data instead of an error. Malformed tags fall back to plain text.
+- **The owner stays in control:** a warning appears if the message contains an email address or phone number, the owner must tick *"I've checked it"* before copying, and nothing is posted automatically.
+- **Cost guard for the public link:** a per-instance cap (`MAX_REQUESTS_PER_HOUR`, default 200) and a 4,000-character limit, both with a friendly message. A full session costs about 1 to 2 cents.
 
-## How to run it
+## 📊 Evidence
+
+We didn't get to test with a real café owner on the day, so we won't claim a reaction we don't have. What we can show:
+
+**A blind test.** 10 Instagram briefs ran through the live app. A separate Claude judge (Opus 5.5) scored the posts without knowing which came first.
+
+| | Before onboarding | After onboarding |
+|---|:---:|:---:|
+| Specific (1 to 5) | 1.0 | **4.5** |
+| Sounds like the shop (1 to 5) | 1.8 | **4.6** |
+| Clear next step (1 to 5) | 2.5 | **4.5** |
+| Judge preferred | 0 of 10 | **10 of 10** |
+
+Method and limits: [`eval/RESULTS.md`](eval/RESULTS.md). Run it yourself with `npm run eval`.
+
+**A visible learning signal.** The meter goes from 1 of 4 to 4 of 4, and the owner leaves with a note they can reuse in any AI chat.
+
+**Next step:** test it with owners in the AI workshops that chambers and craft associations already run (IHK, Handwerkskammer, Mittelstand-Digital Zentren), and track whether they reuse the note.
+
+## 🚀 Run it locally
 
 ```bash
 cp .env.example .env    # paste your ANTHROPIC_API_KEY into .env
@@ -48,42 +90,27 @@ npm install
 npm run dev             # open http://localhost:3000
 ```
 
-No key? Run `npm run mock` (or set `MOCK=1` in `.env`) to run the whole flow on demo data for all three presets.
+No key? `npm run mock` runs the whole flow on demo data for all three presets.
 
-**Live link:** https://pomelo-weld.vercel.app
+## 🛣️ What's next
 
-## Screenshots / demo
+Our designer's [Paper](https://paper.design) prototype shows where this goes: a café counter with daily orders, an AI Business Passport the owner exports to Claude or ChatGPT, the AI intern reading the shop's website first, and a German UI.
 
-TODO: 2-minute demo video link.
+## 👋 Team Pomelo
 
-| Compare: every answer and the sentences it produced share a colour | Note: a reusable brief, and the meter goes from 1 of 4 to 4 of 4 |
-|---|---|
-| ![Compare screen](docs/screenshots/compare.png) | ![Note screen](docs/screenshots/note.png) |
+| | Name | Role |
+|---|---|---|
+| 🛠️ | [Shinbeom](https://www.linkedin.com/in/shinbeom-pyeon/) | Builder |
+| 🛠️ | [Silvia](https://www.linkedin.com/in/silvia-giammarinaro) | Builder |
+| 🎨 | [Dima Durah](https://www.linkedin.com/in/dima-durah) | Product design |
+| 🎓 | [Yuan](https://www.linkedin.com/in/xiaoyuan-zhang-171038108) | Domain expert |
+| 🚀 | [David Koenig](https://www.linkedin.com/in/david-brandon-koenig-32635439a/) | Founder |
 
-Screenshots from the live app with the real Claude API (no demo data).
-
-## Evidence so far
-
-We didn't get to test with a real café owner on the day, so we won't claim a reaction we don't have. What we can show:
-
-- **A blind test of the outputs.** 10 Instagram briefs ran through the live app, and a separate Claude judge scored the posts without knowing which came first. The onboarded post won 10 of 10, and "specific" went from 1.0 to 4.5 out of 5. See [`eval/RESULTS.md`](eval/RESULTS.md).
-- **A visible learning signal.** The meter shows how many of the four things a new employee needs were in the owner's message: 1 of 4 at the start of the review demo, 4 of 4 in the note they take away.
-- **Next step:** try it with owners in the AI workshops that chambers and craft associations already run (IHK, Handwerkskammer, Mittelstand-Digital Zentren) and record whether they reuse the note.
-
-## Team: Pomelo
-
-| Name | Role / background |
-|---|---|
-| [Shinbeom](https://www.linkedin.com/in/shinbeom-pyeon/) | Builder |
-| [Silvia](https://www.linkedin.com/in/silvia-giammarinaro) | Builder |
-| [Dima Durah](https://www.linkedin.com/in/dima-durah) | Product design |
-| [Yuan](https://www.linkedin.com/in/xiaoyuan-zhang-171038108) | Domain expert |
-| [David Koenig](https://www.linkedin.com/in/david-brandon-koenig-32635439a/) | Founder |
-
-## Credits
+## 🙏 Credits
 
 - [Next.js](https://nextjs.org) and [Tailwind CSS](https://tailwindcss.com) (MIT)
 - [Anthropic TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript) (MIT)
+- [Itim](https://fonts.google.com/specimen/Itim) and [Mali](https://fonts.google.com/specimen/Mali) (SIL Open Font License)
+- Visual style and storefront illustration from our own Paper prototype
 - Hosted on [Vercel](https://vercel.com)
-- [Itim](https://fonts.google.com/specimen/Itim) and [Mali](https://fonts.google.com/specimen/Mali) (SIL Open Font License); visual style from our own Paper prototype
 - "AI as an intern" idea popularised by Ethan Mollick

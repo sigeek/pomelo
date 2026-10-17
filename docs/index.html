@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Intern · Team Pomelo</title>
+  <meta name="description" content="Onboard your AI intern like a new employee, and it starts sounding like your shop. Built at the Claude Impact Lab Berlin." />
+  <link rel="icon" href="assets/storefront.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #5c2d2b;
+      --ink-soft: #8a5a50;
+      --card: #fff9ee;
+      --counter: #f9f0ea;
+      --go: #6bc46a;
+      --green: #2f7a4a;
+      --a1-bg: #f9d5d2; --a1: #8a2e2a;
+      --a2-bg: #e6daf4; --a2: #5b3c86;
+      --a3-bg: #d3efe3; --a3: #22604a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font: 500 17px/1.6 "Mali", system-ui, sans-serif;
+      background: repeating-linear-gradient(90deg, #f6dfa2 0 22px, #efd088 22px 26px) fixed;
+    }
+    h1, h2, h3 { font-family: "Itim", system-ui, sans-serif; font-weight: 400; line-height: 1.15; margin: 0; }
+    a { color: var(--green); }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--ink);
+      border-radius: 26px;
+      box-shadow: 0 6px 0 var(--ink);
+    }
+    .hero { display: grid; grid-template-columns: 1fr; overflow: hidden; }
+    .hero img { display: block; width: 100%; height: 100%; object-fit: cover; border-bottom: 3px solid var(--ink); }
+    .hero .text { padding: 28px 24px 32px; }
+    .hero h1 { font-size: clamp(36px, 7vw, 56px); }
+    .hero p.lead { font-size: 19px; margin: 14px 0 22px; color: var(--ink-soft); max-width: 34ch; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px;
+      border: 3px solid var(--ink); border-radius: 18px; box-shadow: 0 4px 0 var(--ink);
+      font-family: "Itim", system-ui, sans-serif; font-size: 19px; color: var(--ink); text-decoration: none;
+      background: var(--card);
+    }
+    .btn.go { background: var(--go); }
+    .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+    .tag { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+    section { margin-top: 40px; }
+    section > h2 { font-size: 32px; margin-bottom: 14px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    .pad { padding: 20px 22px; }
+    .stat { font-family: "Itim", system-ui, sans-serif; font-size: 44px; color: var(--green); line-height: 1; }
+    .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .steps li { counter-increment: s; display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; }
+    .steps li::before {
+      content: counter(s); flex: 0 0 34px; height: 34px; border: 2.5px solid var(--ink); border-radius: 999px;
+      display: grid; place-items: center; font-family: "Itim", system-ui, sans-serif; background: var(--go);
+    }
+    .chip { display: inline-block; padding: 1px 8px; border-radius: 8px; }
+    .c1 { background: var(--a1-bg); color: var(--a1); }
+    .c2 { background: var(--a2-bg); color: var(--a2); }
+    .c3 { background: var(--a3-bg); color: var(--a3); }
+    sup { font-weight: 700; font-size: 11px; }
+    .shots { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    .shots figure { margin: 0; overflow: hidden; }
+    .shots img { display: block; width: 100%; border-bottom: 3px solid var(--ink); }
+    .shots figcaption { padding: 12px 16px; font-size: 15px; }
+    table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 2px dashed #e3cdb8; }
+    th { font-family: "Itim", system-ui, sans-serif; font-weight: 400; font-size: 17px; }
+    td.n { font-family: "Itim", system-ui, sans-serif; font-size: 20px; }
+    .team { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+    .team a { text-decoration: none; color: var(--ink); display: block; padding: 16px; }
+    .team b { font-family: "Itim", system-ui, sans-serif; font-weight: 400; font-size: 21px; display: block; }
+    footer { margin-top: 48px; text-align: center; font-size: 14px; color: var(--ink-soft); }
+    @media (min-width: 760px) {
+      .hero { grid-template-columns: 0.9fr 1.1fr; }
+      .hero img { border-bottom: 0; border-right: 3px solid var(--ink); }
+      .hero .text { padding: 40px 36px; align-self: center; }
+      .grid.three { grid-template-columns: repeat(3, 1fr); }
+      .shots { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="card hero">
+      <img src="assets/storefront.svg" alt="A small café with an AI intern behind the door" />
+      <div class="text">
+        <span class="tag">Team Pomelo · Claude Impact Lab Berlin</span>
+        <h1>Your business.<br />Your AI intern.</h1>
+        <p class="lead">Onboard your AI intern like a new employee, and it starts sounding like your shop. Three minutes, on today's real task.</p>
+        <div class="btns">
+          <a class="btn go" href="https://pomelo-weld.vercel.app">Open the app</a>
+          <a class="btn" href="https://github.com/sigeek/pomelo">Code on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2>The problem</h2>
+      <div class="grid three">
+        <div class="card pad"><div class="stat">19%</div><p>of German firms with fewer than 5 employees used AI between 2022 and 2024 (<a href="https://www.kfw.de/PDF/Download-Center/Konzernthemen/Research/PDF-Dokumente-Fokus-Volkswirtschaft/Fokus-2026/Fokus-Nr.-533-Februar-2026-KI-Mittelstand.pdf">KfW Research</a>).</p></div>
+        <div class="card pad"><div class="stat">1 line</div><p>is all most owners type. The answer sounds like a chain, so they decide AI isn't for them.</p></div>
+        <div class="card pad"><div class="stat">0 new skills</div><p>needed. Every owner already knows how to onboard a new employee. That's the whole trick.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li class="card">Mira (fictional) owns Kiez Café. A 1-star review: <em>"Waited 20 minutes for one coffee. Never again."</em> She asks her AI intern for a reply.</li>
+        <li class="card">The first try is a stock apology. She rates it 2 stars: <em>too generic</em>.</li>
+        <li class="card">Her AI intern asks what a new barista would: what happened, how she sounds, what the guest should do. She taps three answers.</li>
+        <li class="card">The new reply sounds like her, and every answer lights up in its own colour: <span class="chip c1">a Saturday rush, one barista sick<sup>1</sup></span> <span class="chip c2">signed, Mira<sup>2</sup></span> <span class="chip c3">your next coffee is on me<sup>3</sup></span></li>
+        <li class="card">She keeps a reusable note for any AI chat. Her first message covered <b>1 of 4</b> things a new employee needs; her note covers <b>4 of 4</b>.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>See it</h2>
+      <div class="shots">
+        <figure class="card"><img src="screenshots/compare.png" alt="Compare screen: answers and the sentences they produced share a colour" /><figcaption><b>Compare.</b> Each answer and the sentences it produced share a colour and a number.</figcaption></figure>
+        <figure class="card"><img src="screenshots/note.png" alt="Note screen: a reusable brief and a meter from 1 of 4 to 4 of 4" /><figcaption><b>Keep the note.</b> A reusable brief, and the meter from 1 of 4 to 4 of 4.</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Does it help?</h2>
+      <div class="card pad">
+        <p style="margin-top:0">10 Instagram briefs through the live app. A separate Claude judge scored the posts blind, in random order.</p>
+        <table>
+          <thead><tr><th></th><th>Before onboarding</th><th>After onboarding</th></tr></thead>
+          <tbody>
+            <tr><td>Specific (1 to 5)</td><td class="n">1.0</td><td class="n" style="color:var(--green)">4.5</td></tr>
+            <tr><td>Sounds like the shop</td><td class="n">1.8</td><td class="n" style="color:var(--green)">4.6</td></tr>
+            <tr><td>Clear next step</td><td class="n">2.5</td><td class="n" style="color:var(--green)">4.5</td></tr>
+            <tr><td>Judge preferred</td><td class="n">0 of 10</td><td class="n" style="color:var(--green)">10 of 10</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-bottom:0;font-size:15px;color:var(--ink-soft)">One sample per brief, coach-written answers and an AI judge. Real owners are our next test. <a href="https://github.com/sigeek/pomelo/blob/main/eval/RESULTS.md">Method and limits</a>.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>How Claude is used</h2>
+      <div class="grid three">
+        <div class="card pad"><h3>AI intern</h3><p>Writes the reply or post, never invents facts, and tags every phrase with the answer it came from.</p></div>
+        <div class="card pad"><h3>Coach</h3><p>Spots which of what, who, tone and goal are missing and asks 3 plain questions, with tappable answers.</p></div>
+        <div class="card pad"><h3>Lesson</h3><p>Turns it all into a reusable note with blanks, what changed, and a one-line takeaway.</p></div>
+      </div>
+      <p>Claude Sonnet 5.5 through the Anthropic API, structured output validated on the server, labelled demo data if a call fails, and the owner ticks <em>"I've checked it"</em> before anything is copied. Nothing is stored or posted.</p>
+    </section>
+
+    <section>
+      <h2>Team Pomelo</h2>
+      <div class="team">
+        <a class="card" href="https://www.linkedin.com/in/shinbeom-pyeon/"><b>Shinbeom</b>Builder</a>
+        <a class="card" href="https://www.linkedin.com/in/silvia-giammarinaro"><b>Silvia</b>Builder</a>
+        <a class="card" href="https://www.linkedin.com/in/dima-durah"><b>Dima Durah</b>Product design</a>
+        <a class="card" href="https://www.linkedin.com/in/xiaoyuan-zhang-171038108"><b>Yuan</b>Domain expert</a>
+        <a class="card" href="https://www.linkedin.com/in/david-brandon-koenig-32635439a/"><b>David Koenig</b>Founder</a>
+      </div>
+    </section>
+
+    <footer>Built in one day at the Claude Impact Lab Berlin, 17 Oct 2026. Fonts: Itim and Mali (SIL OFL). Illustration from our own Paper prototype.</footer>
+  </main>
+</body>
+</html>
