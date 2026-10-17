@@ -11,6 +11,7 @@ import type {
   WithDemo,
 } from "@/lib/schema";
 import { parseTags, stripTags } from "@/lib/tags";
+import { Storefront } from "@/components/Storefront";
 
 // ---------- Content ----------
 
@@ -86,6 +87,7 @@ function detectTask(brief: string): Task {
 type Step = 0 | 1 | 2 | 3;
 
 export default function Home() {
+  const [opened, setOpened] = useState(false);
   const [step, setStep] = useState<Step>(0);
   const [brief, setBrief] = useState(TASKS[0].brief);
   const [task, setTask] = useState<Task>("review");
@@ -186,6 +188,14 @@ export default function Home() {
 
   const reached: Step = lesson ? 3 : v2 ? 2 : coach ? 1 : 0;
   const isDemo = [v1, coach, v2, lesson].slice(0, step + 1).some((r) => r?.demo);
+
+  if (!opened) {
+    return (
+      <main className="mx-auto min-h-dvh w-full max-w-[480px] px-4 pb-16 pt-4">
+        <Welcome onOpen={() => setOpened(true)} />
+      </main>
+    );
+  }
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[480px] px-4 pb-16 pt-4">
@@ -451,6 +461,62 @@ function OutputCard({ task, brief, children }: { task: Task; brief: string; chil
     );
   }
   return <div className="rounded-2xl border border-line bg-white p-4 text-[15px] leading-relaxed">{children}</div>;
+}
+
+// ---------- Welcome ----------
+
+/** "kiezcafe.example" -> "Kiezcafe". Only used for the sign; the website is not read yet. */
+function nameFromWebsite(site: string): string {
+  const host = site.trim().replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[/.]/)[0];
+  return host ? host.charAt(0).toUpperCase() + host.slice(1, 18) : "";
+}
+
+function Welcome({ onOpen }: { onOpen: () => void }) {
+  const [site, setSite] = useState("");
+  return (
+    <section>
+      <div className="overflow-hidden rounded-[26px] border-[3px] border-ink bg-white shadow-[0_6px_0_var(--color-ink)]">
+        <div className="border-b-[3px] border-ink bg-[#D3E6EE]">
+          <Storefront name={nameFromWebsite(site) || "Your café here"} />
+        </div>
+        <div className="p-5">
+          <h1 className="text-[34px] leading-[1.1]">
+            Your business.
+            <br />
+            Your AI intern.
+          </h1>
+          <p className="mt-2 text-muted">
+            Onboard your AI intern on a real task, like you would a new barista. Every task you finish is real work done.
+          </p>
+          <label htmlFor="site" className="mt-5 block text-sm font-semibold">
+            Your café&apos;s website
+          </label>
+          <input
+            id="site"
+            value={site}
+            onChange={(e) => setSite(e.target.value)}
+            placeholder="kiezcafe.example"
+            inputMode="url"
+            className="mt-2 min-h-12 w-full rounded-2xl border-[3px] border-ink bg-white px-4 text-base outline-none placeholder:text-muted/70"
+          />
+          <PrimaryButton onClick={onOpen}>Open my café</PrimaryButton>
+          <button
+            onClick={() => {
+              setSite("kiezcafe.example");
+              onOpen();
+            }}
+            className="mt-3 min-h-11 text-sm font-semibold underline underline-offset-2"
+          >
+            Try the demo café
+          </button>
+        </div>
+      </div>
+      <p className="mt-5 rounded-2xl border-2 border-dashed border-muted/60 bg-white/70 px-4 py-3 text-sm text-ink">
+        <strong>Nothing gets posted for you.</strong> Your AI intern writes drafts; you decide what to copy. Never paste
+        customer names or personal data.
+      </p>
+    </section>
+  );
 }
 
 // ---------- Step 1: Task ----------
