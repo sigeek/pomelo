@@ -49,6 +49,10 @@ const COPY_LABEL: Record<Task, string> = {
 
 const GENERIC_ERROR = "Something went wrong. Try again.";
 
+const RATING_NOTES = ["Too generic", "Doesn't sound like us"];
+
+type Rating = { stars: number; notes: string[] };
+
 // ---------- API ----------
 
 class FriendlyError extends Error {}
@@ -99,6 +103,7 @@ export default function Home() {
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<{ text: string; retry: () => void } | null>(null);
   const [lessonError, setLessonError] = useState(false);
+  const [rating, setRating] = useState<Rating>({ stars: 0, notes: [] });
 
   const answers: Answer[] = (coach?.questions ?? [])
     .map((q) => ({ n: q.n, question: q.question, answer: answerText[q.n].trim() }))
@@ -117,6 +122,7 @@ export default function Home() {
       setV1(intern);
       setCoach(coachRes);
       setAnswerText({ 1: "", 2: "", 3: "" });
+      setRating({ stars: 0, notes: [] });
       setV2(null);
       setLesson(null);
       setStep(1);
@@ -230,6 +236,8 @@ export default function Home() {
               3: coach.questions[2]?.suggestions[0] ?? "",
             })
           }
+          rating={rating}
+          setRating={setRating}
           canSend={answers.length > 0}
           onSend={sendAgain}
           loading={loading}
@@ -245,6 +253,7 @@ export default function Home() {
           lesson={lesson}
           lessonError={lessonError}
           onRetryLesson={() => loadLesson(v2.output)}
+          rating={rating}
           onNext={() => goTo(3)}
         />
       )}
@@ -348,7 +357,17 @@ async function copyText(text: string): Promise<boolean> {
   }
 }
 
-function CopyButton({ label, text, className = "" }: { label: string; text: string; className?: string }) {
+function CopyButton({
+  label,
+  text,
+  className = "",
+  disabled = false,
+}: {
+  label: string;
+  text: string;
+  className?: string;
+  disabled?: boolean;
+}) {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   async function onCopy() {
     setState((await copyText(text)) ? "copied" : "failed");
@@ -357,10 +376,69 @@ function CopyButton({ label, text, className = "" }: { label: string; text: stri
   return (
     <button
       onClick={onCopy}
-      className={`min-h-11 rounded-xl border border-accent px-4 text-sm font-semibold text-accent ${className}`}
+      disabled={disabled}
+      className={`min-h-11 rounded-xl border border-accent px-4 text-sm font-semibold text-accent disabled:opacity-40 ${className}`}
     >
       {state === "copied" ? "Copied ✓" : state === "failed" ? "Couldn't copy" : label}
     </button>
+  );
+}
+
+function Star({ filled }: { filled: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
+      <path
+        d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z"
+        fill={filled ? "#F2B33D" : "#FFF9EE"}
+        stroke="#5C2D2B"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** "Rate my work": the owner gives the first try honest feedback, like they would a new hire. */
+function RateFirstTry({ rating, setRating }: { rating: Rating; setRating: (r: Rating) => void }) {
+  return (
+    <div className="mt-4 rounded-2xl border border-line bg-white p-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-lg">Rate my work</h2>
+        <div role="radiogroup" aria-label="Rate the first try" className="flex">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button
+              key={n}
+              role="radio"
+              aria-checked={rating.stars === n}
+              aria-label={`${n} of 5 stars`}
+              onClick={() => setRating({ ...rating, stars: n })}
+              className="flex h-11 w-10 items-center justify-center"
+            >
+              <Star filled={n <= rating.stars} />
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {RATING_NOTES.map((note) => {
+          const on = rating.notes.includes(note);
+          return (
+            <button
+              key={note}
+              aria-pressed={on}
+              onClick={() =>
+                setRating({ ...rating, notes: on ? rating.notes.filter((x) => x !== note) : [...rating.notes, note] })
+              }
+              className={`min-h-11 rounded-full border-2 border-ink px-4 text-sm font-semibold ${
+                on ? "bg-ink text-white" : "bg-white text-ink"
+              }`}
+            >
+              {note}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -435,7 +513,7 @@ function OutputCard({ task, brief, children }: { task: Task; brief: string; chil
         {review && (
           <div className="mb-3 border-b border-line pb-3">
             <p className="text-sm tracking-wide text-[#E3A008]" aria-label="1 of 5 stars">
-              ★<span className="text-line">★★★★</span>
+              ★<span className="text-soft-line">★★★★</span>
             </p>
             <p className="mt-1 text-[15px]">{review}</p>
             <p className="mt-1 text-xs text-muted">A guest · 2 days ago</p>
@@ -592,6 +670,8 @@ function OnboardStep({
   answerText,
   setAnswer,
   onExamples,
+  rating,
+  setRating,
   canSend,
   onSend,
   loading,
@@ -603,6 +683,8 @@ function OnboardStep({
   answerText: Record<AnswerNumber, string>;
   setAnswer: (n: AnswerNumber, value: string) => void;
   onExamples: () => void;
+  rating: Rating;
+  setRating: (r: Rating) => void;
   canSend: boolean;
   onSend: () => void;
   loading: string | null;
@@ -615,6 +697,7 @@ function OnboardStep({
           <p className="whitespace-pre-line">{stripTags(v1)}</p>
         </OutputCard>
       </div>
+      <RateFirstTry rating={rating} setRating={setRating} />
       <p className="mt-3 text-sm text-muted">
         Generic, right? That&apos;s not your AI intern&apos;s fault. Nobody told them about your shop yet.
       </p>
@@ -681,6 +764,7 @@ function CompareStep({
   lesson,
   lessonError,
   onRetryLesson,
+  rating,
   onNext,
 }: {
   task: Task;
@@ -690,8 +774,10 @@ function CompareStep({
   lesson: LessonResult | null;
   lessonError: boolean;
   onRetryLesson: () => void;
+  rating: Rating;
   onNext: () => void;
 }) {
+  const [checked, setChecked] = useState(false);
   return (
     <section>
       <h1 className="text-[26px] font-bold leading-tight">Same AI intern. Three answers later.</h1>
@@ -705,7 +791,15 @@ function CompareStep({
         ))}
       </div>
 
-      <h2 className="mt-5 text-sm font-semibold text-muted">Before onboarding</h2>
+      <h2 className="mt-5 text-sm font-semibold text-muted">
+        Before onboarding
+        {rating.stars > 0 && (
+          <span className="font-normal">
+            {" "}
+            · you gave it {rating.stars} of 5{rating.notes.length > 0 && `: ${rating.notes.join(", ").toLowerCase()}`}
+          </span>
+        )}
+      </h2>
       <div className="mt-2 rounded-2xl border border-line bg-white/60 p-3 text-sm leading-relaxed text-muted">
         <p className="whitespace-pre-line">{stripTags(v1)}</p>
       </div>
@@ -713,7 +807,19 @@ function CompareStep({
       <h2 className="mt-5 text-sm font-semibold text-accent">After onboarding</h2>
       <div className="mt-2 rounded-2xl border-2 border-accent bg-white p-4 text-[15px] leading-relaxed">
         <TaggedText text={v2} />
-        <CopyButton label={COPY_LABEL[task]} text={stripTags(v2)} className="mt-3" />
+        <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border-2 border-ink bg-page px-3 py-2.5">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+            className="h-6 w-6 shrink-0 accent-[#6BC46A]"
+          />
+          <span>
+            <span className="block font-display text-base leading-tight">I&apos;ve checked it</span>
+            <span className="block text-sm text-muted">Names, dates and claims are right</span>
+          </span>
+        </label>
+        <CopyButton label={COPY_LABEL[task]} text={stripTags(v2)} className="mt-3" disabled={!checked} />
       </div>
 
       <div className="mt-5 rounded-2xl border border-line bg-white p-4">
