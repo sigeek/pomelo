@@ -39,6 +39,13 @@ const ESSENTIALS: { id: Element; title: string; text: string }[] = [
   { id: "goal", title: "Goal", text: "What people should do next" },
 ];
 
+const COPY_LABEL: Record<Task, string> = {
+  review: "Copy reply",
+  post: "Copy post",
+  job: "Copy ad",
+  custom: "Copy text",
+};
+
 const GENERIC_ERROR = "Something went wrong. Try again.";
 
 // ---------- API ----------
@@ -164,6 +171,14 @@ export default function Home() {
     window.scrollTo({ top: 0 });
   }
 
+  // Learning meter: what the first message had, plus what the answers added (unique, max 4).
+  const noteElements = [
+    ...new Set([
+      ...(coach?.covered ?? []),
+      ...(coach?.questions ?? []).filter((q) => answerText[q.n].trim()).map((q) => q.element),
+    ]),
+  ];
+
   const reached: Step = lesson ? 3 : v2 ? 2 : coach ? 1 : 0;
   const isDemo = [v1, coach, v2, lesson].slice(0, step + 1).some((r) => r?.demo);
 
@@ -208,6 +223,7 @@ export default function Home() {
 
       {step === 2 && v1 && v2 && (
         <CompareStep
+          task={task}
           v1={v1.output}
           v2={v2.output}
           answers={answers}
@@ -218,7 +234,9 @@ export default function Home() {
         />
       )}
 
-      {step === 3 && lesson && <NoteStep lesson={lesson} onReset={reset} />}
+      {step === 3 && lesson && coach && (
+        <NoteStep lesson={lesson} covered={coach.covered} noteElements={noteElements} onReset={reset} />
+      )}
 
       {error && (
         <div role="alert" className="mt-4 rounded-2xl border border-line bg-white p-4">
@@ -295,6 +313,38 @@ function PrimaryButton({
       className="mt-5 min-h-12 w-full rounded-2xl bg-accent px-4 text-base font-semibold text-white disabled:opacity-50"
     >
       {children}
+    </button>
+  );
+}
+
+async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // Fallback for browsers without the async clipboard API.
+    const el = document.createElement("textarea");
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    const ok = document.execCommand("copy");
+    el.remove();
+    return ok;
+  }
+}
+
+function CopyButton({ label, text, className = "" }: { label: string; text: string; className?: string }) {
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
+  async function onCopy() {
+    setState((await copyText(text)) ? "copied" : "failed");
+    setTimeout(() => setState("idle"), 2000);
+  }
+  return (
+    <button
+      onClick={onCopy}
+      className={`min-h-11 rounded-xl border border-accent px-4 text-sm font-semibold text-accent ${className}`}
+    >
+      {state === "copied" ? "Copied ✓" : state === "failed" ? "Couldn't copy" : label}
     </button>
   );
 }
@@ -485,6 +535,23 @@ function OnboardStep({
                 placeholder={q.suggestions[0]}
                 className={`mt-2 min-h-11 w-full rounded-xl border-2 px-3 text-base outline-none ${ANSWER_STYLE[q.n].chip} border-transparent placeholder:opacity-50 focus:border-current`}
               />
+              <div className="mt-2 flex flex-wrap gap-2">
+                {q.suggestions.map((s) => {
+                  const picked = answerText[q.n] === s;
+                  return (
+                    <button
+                      key={s}
+                      onClick={() => setAnswer(q.n, s)}
+                      aria-pressed={picked}
+                      className={`min-h-11 rounded-full border px-3 py-1.5 text-left text-sm ${
+                        picked ? `${ANSWER_STYLE[q.n].chip} border-current font-semibold` : "border-line bg-white text-muted"
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </div>
@@ -504,6 +571,7 @@ function OnboardStep({
 // ---------- Step 3: Compare ----------
 
 function CompareStep({
+  task,
   v1,
   v2,
   answers,
@@ -512,6 +580,7 @@ function CompareStep({
   onRetryLesson,
   onNext,
 }: {
+  task: Task;
   v1: string;
   v2: string;
   answers: Answer[];
@@ -541,6 +610,7 @@ function CompareStep({
       <h2 className="mt-5 text-sm font-semibold text-accent">After onboarding</h2>
       <div className="mt-2 rounded-2xl border-2 border-accent bg-white p-4 text-[15px] leading-relaxed">
         <TaggedText text={v2} />
+        <CopyButton label={COPY_LABEL[task]} text={stripTags(v2)} className="mt-3" />
       </div>
 
       <div className="mt-5 rounded-2xl border border-line bg-white p-4">
@@ -592,14 +662,54 @@ function BracketText({ text }: { text: string }) {
   );
 }
 
-function NoteStep({ lesson, onReset }: { lesson: LessonResult; onReset: () => void }) {
+function LearningMeter({ covered, noteElements }: { covered: Element[]; noteElements: Element[] }) {
+  return (
+    <div className="rounded-[18px] border border-line bg-white p-4">
+      <div className="grid grid-cols-4 gap-1.5">
+        {ESSENTIALS.map((e) => {
+          const inNote = noteElements.includes(e.id);
+          return (
+            <span
+              key={e.id}
+              className={`flex min-h-9 items-center justify-center rounded-full text-sm font-semibold ${
+                inNote ? "bg-accent text-white" : "border border-line text-muted"
+              }`}
+            >
+              {inNote ? "✓ " : ""}
+              {e.title}
+            </span>
+          );
+        })}
+      </div>
+      <p className="mt-3 text-[15px] leading-relaxed">
+        Your first message covered <strong>{covered.length} of 4</strong> things a new employee needs. Your note
+        covers <strong className="text-accent">{noteElements.length} of 4</strong>.
+      </p>
+    </div>
+  );
+}
+
+function NoteStep({
+  lesson,
+  covered,
+  noteElements,
+  onReset,
+}: {
+  lesson: LessonResult;
+  covered: Element[];
+  noteElements: Element[];
+  onReset: () => void;
+}) {
   return (
     <section>
-      <h1 className="text-[26px] font-bold leading-tight">Your onboarding note</h1>
+      <LearningMeter covered={covered} noteElements={noteElements} />
+
+      <h1 className="mt-6 text-[26px] font-bold leading-tight">Your onboarding note</h1>
       <p className="mt-2 text-muted">Paste it into any AI chat next time. Fill in the parts in brackets.</p>
 
       <div className="mt-4 rounded-[18px] border-2 border-accent bg-white p-4 text-[15px] leading-relaxed">
         <BracketText text={lesson.improvedBrief} />
+        <CopyButton label="Copy note" text={lesson.improvedBrief} className="mt-3" />
       </div>
 
       <h2 className="mt-6 font-bold">What a new employee needs to know</h2>
