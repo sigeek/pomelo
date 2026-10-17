@@ -72,6 +72,11 @@ function errorText(err: unknown): string {
   return err instanceof FriendlyError ? err.message : GENERIC_ERROR;
 }
 
+// Warn (never block) when the message looks like it contains an email address or phone number.
+function hasPersonalData(text: string): boolean {
+  return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(text) || /\+?\d[\d\s()\/-]{7,}\d/.test(text);
+}
+
 function detectTask(brief: string): Task {
   return TASKS.find((t) => t.brief === brief.trim())?.id ?? "custom";
 }
@@ -349,6 +354,32 @@ function CopyButton({ label, text, className = "" }: { label: string; text: stri
   );
 }
 
+function ShareButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  async function onShare() {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "My onboarding note", text });
+        return;
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") return; // the owner closed the share sheet
+      }
+    }
+    if (await copyText(text)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }
+  return (
+    <button
+      onClick={onShare}
+      className="min-h-11 rounded-xl border border-line px-4 text-sm font-semibold text-ink"
+    >
+      {copied ? "Copied ✓" : "Share"}
+    </button>
+  );
+}
+
 function NumberBadge({ n, className = "" }: { n: AnswerNumber; className?: string }) {
   return (
     <span
@@ -471,6 +502,12 @@ function TaskStep({
         className="mt-2 w-full rounded-2xl border border-line bg-white p-3 text-base outline-none focus:border-accent"
       />
       <p className="mt-1 text-xs text-muted">Never paste customer names or personal data.</p>
+
+      {hasPersonalData(brief) && (
+        <p role="status" className="mt-4 rounded-xl border border-a3/30 bg-a3-bg px-3 py-2 text-sm text-a3">
+          This looks like it contains an email address or phone number. Please remove personal data before sending.
+        </p>
+      )}
 
       <PrimaryButton onClick={onSend} disabled={!!loading || !brief.trim()}>
         {loading ?? "Send to AI intern"}
@@ -709,7 +746,10 @@ function NoteStep({
 
       <div className="mt-4 rounded-[18px] border-2 border-accent bg-white p-4 text-[15px] leading-relaxed">
         <BracketText text={lesson.improvedBrief} />
-        <CopyButton label="Copy note" text={lesson.improvedBrief} className="mt-3" />
+        <div className="mt-3 flex gap-2">
+          <CopyButton label="Copy note" text={lesson.improvedBrief} />
+          <ShareButton text={lesson.improvedBrief} />
+        </div>
       </div>
 
       <h2 className="mt-6 font-bold">What a new employee needs to know</h2>

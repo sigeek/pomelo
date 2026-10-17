@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { isMockMode, runCoach, runIntern, runLesson } from "@/lib/claude";
-import { MOCK_COACH, MOCK_INTERN_V1, MOCK_INTERN_V2, MOCK_LESSON } from "@/lib/mock";
+import { getMock } from "@/lib/mock";
 import { takeRequestSlot } from "@/lib/rate-limit";
-import type { Answer, AnswerNumber } from "@/lib/schema";
+import type { Answer, AnswerNumber, Task } from "@/lib/schema";
 import { stripTags } from "@/lib/tags";
 
 export const runtime = "nodejs";
@@ -73,8 +73,9 @@ export async function POST(req: Request) {
 
   // Demo data for this mode, used in mock mode and as the fallback for live failures.
   const withAnswers = !!answers?.length;
-  const mock =
-    mode === "coach" ? MOCK_COACH : mode === "lesson" ? MOCK_LESSON : withAnswers ? MOCK_INTERN_V2 : MOCK_INTERN_V1;
+  const task = ["review", "post", "job"].includes(body.task as string) ? (body.task as Task) : "custom";
+  const demo = getMock(task);
+  const mock = mode === "coach" ? demo.coach : mode === "lesson" ? demo.lesson : withAnswers ? demo.v2 : demo.v1;
 
   if (isMockMode()) return NextResponse.json({ ...mock, demo: true });
 
