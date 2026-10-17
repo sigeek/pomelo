@@ -1,6 +1,6 @@
 > 📅 Built at the **Claude Impact Lab Berlin, 17 Oct 2026**. Event rules and judging: [claude-impact-lab-berlin-2026-10-17](https://github.com/Claude-Community-Berlin/claude-impact-lab-berlin-2026-10-17)
 >
-> TODO before 15:45: screenshots, demo video link, team table. Then delete this line.
+> TODO before 15:45: screenshots, demo video link. Then delete this line.
 
 # AI Intern
 
@@ -68,11 +68,11 @@ We didn't get to test with a real café owner on the day, so we won't claim a re
 
 | Name | Role / background |
 |---|---|
-| [Name](https://www.linkedin.com/in/your-profile) | Builder |
-| [Name](https://www.linkedin.com/in/your-profile) | Product or design |
-| [Name](https://www.linkedin.com/in/your-profile) | Domain expert (education) |
-| [Name](https://www.linkedin.com/in/your-profile) | Founder |
-| [Name](https://www.linkedin.com/in/your-profile) | |
+| [Shinbeom](https://www.linkedin.com/in/shinbeom-pyeon/) | Builder |
+| [Silvia](https://www.linkedin.com/in/silvia-giammarinaro) | Builder |
+| [Dima Durah](https://www.linkedin.com/in/dima-durah) | Product design |
+| [Yuan](https://www.linkedin.com/in/xiaoyuan-zhang-171038108) | Domain expert |
+| [David Koenig](https://www.linkedin.com/in/david-brandon-koenig-32635439a/) | Founder |
 
 ## Credits
 
