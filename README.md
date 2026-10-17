@@ -47,7 +47,7 @@ npm run dev             # open http://localhost:3000
 
 No key? Set `MOCK=1` in `.env` to run the whole flow on demo data.
 
-**Live link:** TODO
+**Live link:** https://pomelo-weld.vercel.app
 
 ## Screenshots / demo
 
